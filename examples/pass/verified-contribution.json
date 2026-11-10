@@ -1,0 +1,182 @@
+{
+  "fixture_version": "0.1.0",
+  "cases": [
+    {
+      "case_id": "unverified-contribution",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can questions evolve through collaboration?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "unverified"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "verified-contribution",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can question contributions be recorded?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "verified",
+            "verification": {
+              "verifier_id": "human-003",
+              "evidence_ref": "evidence-001"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rejected-contribution",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can invalid contributions be recorded?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "rejected",
+            "verification": {
+              "verifier_id": "human-003",
+              "evidence_ref": "evidence-rejection-001"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "multiple-contributions",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can multiple participants improve one question?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "verified",
+            "verification": {
+              "verifier_id": "human-004",
+              "evidence_ref": "evidence-001"
+            }
+          },
+          {
+            "type": "contribution",
+            "contribution_id": "C002",
+            "question_id": "Q001",
+            "contributor_id": "human-003",
+            "verification_status": "unverified"
+          },
+          {
+            "type": "contribution",
+            "contribution_id": "C003",
+            "question_id": "Q001",
+            "contributor_id": "human-005",
+            "verification_status": "rejected",
+            "verification": {
+              "verifier_id": "human-004",
+              "evidence_ref": "evidence-rejection-003"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "contribution-on-derived-question",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can questions evolve?",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "How can derived questions receive contributions?",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q002",
+            "contributor_id": "human-003",
+            "verification_status": "verified",
+            "verification": {
+              "verifier_id": "human-004",
+              "evidence_ref": "evidence-derived-001"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

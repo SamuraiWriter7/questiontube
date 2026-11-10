@@ -1,0 +1,487 @@
+{
+  "fixture_version": "0.1.0",
+  "cases": [
+    {
+      "case_id": "self-referencing-derivation",
+      "expected_result": "FAIL",
+      "expected_error": "DERIVATION_CYCLE",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Can a question derive from itself?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q001",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "two-node-cycle",
+      "expected_result": "FAIL",
+      "expected_error": "DERIVATION_CYCLE",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Question one",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "Question two",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q002",
+            "child_question_id": "Q001",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "three-node-cycle",
+      "expected_result": "FAIL",
+      "expected_error": "DERIVATION_CYCLE",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Question one",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "Question two",
+            "creator_id": "human-002"
+          },
+          {
+            "type": "question",
+            "question_id": "Q003",
+            "content": "Question three",
+            "creator_id": "human-003"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q002",
+            "child_question_id": "Q003",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q003",
+            "child_question_id": "Q001",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "four-node-cycle",
+      "expected_result": "FAIL",
+      "expected_error": "DERIVATION_CYCLE",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Question one",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "Question two",
+            "creator_id": "human-002"
+          },
+          {
+            "type": "question",
+            "question_id": "Q003",
+            "content": "Question three",
+            "creator_id": "human-003"
+          },
+          {
+            "type": "question",
+            "question_id": "Q004",
+            "content": "Question four",
+            "creator_id": "human-004"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q002",
+            "child_question_id": "Q003",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q003",
+            "child_question_id": "Q004",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q004",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "unknown-parent-question",
+      "expected_result": "FAIL",
+      "expected_error": "UNKNOWN_QUESTION_REFERENCE",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "Question two",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "unknown-child-question",
+      "expected_result": "FAIL",
+      "expected_error": "UNKNOWN_QUESTION_REFERENCE",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Question one",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q999",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "duplicate-question-id",
+      "expected_result": "FAIL",
+      "expected_error": "DUPLICATE_QUESTION_ID",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Original question",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Duplicate question",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "duplicate-derivation",
+      "expected_result": "FAIL",
+      "expected_error": "DUPLICATE_DERIVATION",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Question one",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "Question two",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "duplicate-contribution-id",
+      "expected_result": "FAIL",
+      "expected_error": "DUPLICATE_CONTRIBUTION_ID",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can contributions be tracked?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "unverified"
+          },
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-003",
+            "verification_status": "unverified"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "unknown-contribution-question",
+      "expected_result": "FAIL",
+      "expected_error": "UNKNOWN_CONTRIBUTION_QUESTION",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Question one",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q999",
+            "contributor_id": "human-002",
+            "verification_status": "unverified"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "verified-without-metadata",
+      "expected_result": "FAIL",
+      "expected_error": "SCHEMA_VALIDATION_ERROR",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can verification be recorded?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "verified"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "rejected-without-metadata",
+      "expected_result": "FAIL",
+      "expected_error": "SCHEMA_VALIDATION_ERROR",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can rejected contributions be recorded?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "rejected"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "unverified-with-metadata",
+      "expected_result": "FAIL",
+      "expected_error": "SCHEMA_VALIDATION_ERROR",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How should unverified records be represented?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "unverified",
+            "verification": {
+              "verifier_id": "human-003",
+              "evidence_ref": "evidence-001"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "unsupported-verification-status",
+      "expected_result": "FAIL",
+      "expected_error": "SCHEMA_VALIDATION_ERROR",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How should unsupported states be handled?",
+            "creator_id": "human-001"
+          }
+        ],
+        "derivations": [],
+        "contributions": [
+          {
+            "type": "contribution",
+            "contribution_id": "C001",
+            "question_id": "Q001",
+            "contributor_id": "human-002",
+            "verification_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "missing-question-creator",
+      "expected_result": "FAIL",
+      "expected_error": "SCHEMA_VALIDATION_ERROR",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "Who created this question?"
+          }
+        ],
+        "derivations": [],
+        "contributions": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "fixture_version": "0.1.0",
+  "cases": [
+    {
+      "case_id": "simple-derivation",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can questions evolve?",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "How can question derivations be validated?",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "branching-derivation",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can questions evolve?",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "How can derivations be recorded?",
+            "creator_id": "human-002"
+          },
+          {
+            "type": "question",
+            "question_id": "Q003",
+            "content": "How can contributions be traced?",
+            "creator_id": "human-003"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q003",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "multi-step-derivation",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "What makes a question traceable?",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "How can a question reference its origin?",
+            "creator_id": "human-002"
+          },
+          {
+            "type": "question",
+            "question_id": "Q003",
+            "content": "How can question relationships be validated?",
+            "creator_id": "human-003"
+          },
+          {
+            "type": "question",
+            "question_id": "Q004",
+            "content": "How can a question graph remain consistent?",
+            "creator_id": "human-004"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q002",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q002",
+            "child_question_id": "Q003",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q003",
+            "child_question_id": "Q004",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    },
+    {
+      "case_id": "multiple-parent-derivation",
+      "expected_result": "PASS",
+      "dataset": {
+        "protocol": "questiontube",
+        "version": "0.1.0",
+        "questions": [
+          {
+            "type": "question",
+            "question_id": "Q001",
+            "content": "How can human questions be recorded?",
+            "creator_id": "human-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q002",
+            "content": "How can AI-generated questions be recorded?",
+            "creator_id": "ai-001"
+          },
+          {
+            "type": "question",
+            "question_id": "Q003",
+            "content": "How can questions from different sources be compared?",
+            "creator_id": "human-002"
+          }
+        ],
+        "derivations": [
+          {
+            "type": "derivation",
+            "parent_question_id": "Q001",
+            "child_question_id": "Q003",
+            "relationship": "derived_from"
+          },
+          {
+            "type": "derivation",
+            "parent_question_id": "Q002",
+            "child_question_id": "Q003",
+            "relationship": "derived_from"
+          }
+        ],
+        "contributions": []
+      }
+    }
+  ]
+}

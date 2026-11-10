@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/questiontube/schemas/questiontube-v0.1.schema.json",
+  "title": "QuestionTube Dataset v0.1",
+  "description": "Structural schema for QuestionTube v0.1.0 datasets.",
+  "type": "object",
+  "required": [
+    "protocol",
+    "version",
+    "questions",
+    "derivations",
+    "contributions"
+  ],
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "const": "questiontube"
+    },
+    "version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/question"
+      }
+    },
+    "derivations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/derivation"
+      }
+    },
+    "contributions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contribution"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": ".*\\S.*"
+    },
+    "question": {
+      "title": "Question",
+      "description": "An identifiable unit of inquiry.",
+      "type": "object",
+      "required": [
+        "type",
+        "question_id",
+        "content",
+        "creator_id"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "question"
+        },
+        "question_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": ".*\\S.*"
+        },
+        "creator_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "derivation": {
+      "title": "Derivation",
+      "description": "A directed relationship between two registered questions.",
+      "type": "object",
+      "required": [
+        "type",
+        "parent_question_id",
+        "child_question_id",
+        "relationship"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "derivation"
+        },
+        "parent_question_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "child_question_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "relationship": {
+          "type": "string",
+          "const": "derived_from"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verificationMetadata": {
+      "title": "Verification Metadata",
+      "description": "Recorded verifier identity and evidence reference. This does not authenticate the evidence.",
+      "type": "object",
+      "required": [
+        "verifier_id",
+        "evidence_ref"
+      ],
+      "properties": {
+        "verifier_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contribution": {
+      "title": "Contribution",
+      "description": "A recorded contribution associated with a registered question.",
+      "type": "object",
+      "required": [
+        "type",
+        "contribution_id",
+        "question_id",
+        "contributor_id",
+        "verification_status"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "contribution"
+        },
+        "contribution_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "question_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "contributor_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "unverified",
+            "verified",
+            "rejected"
+          ]
+        },
+        "verification": {
+          "$ref": "#/$defs/verificationMetadata"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "verification_status"
+            ],
+            "properties": {
+              "verification_status": {
+                "const": "unverified"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "verification"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "verification_status"
+            ],
+            "properties": {
+              "verification_status": {
+                "enum": [
+                  "verified",
+                  "rejected"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "verification"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
